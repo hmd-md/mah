@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fbfaf7">
+  <meta name="description" content="Mohamed Amine Hamouda is an artist and researcher based in Gabès, Tunisia. His work explores the materials, memory and ecology of the oasis.">
+  <title>Mohamed Amine Hamouda — Artist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400..600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #fbfaf7;
+      --ink: #191916;
+      --muted: #77746e;
+      --line: #d8d5ce;
+      --column: 670px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      background-image: url("background.svg");
+      background-repeat: repeat;
+      background-size: 124px 124px;
+      color: var(--ink);
+      font-family: "Newsreader", Georgia, "Times New Roman", serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    a:hover { opacity: .55; }
+    .page { min-height: 100svh; padding: 0 24px; }
+    header {
+      height: 62px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .wordmark {
+      font-size: 19px;
+      font-weight: 500;
+      letter-spacing: .06em;
+      line-height: 1;
+      text-align: center;
+      text-transform: uppercase;
+    }
+    main {
+      width: min(100%, var(--column));
+      margin: 0 auto;
+      padding: 0 0 78px;
+    }
+    .gallery {
+      position: relative;
+      left: 50%;
+      width: 100vw;
+      margin-left: -50vw;
+    }
+    .gallery-window {
+      height: clamp(340px, 59vw, 650px);
+      overflow-x: auto;
+      overflow-y: hidden;
+      scrollbar-width: none;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x proximity;
+      scroll-behavior: auto;
+      cursor: grab;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: pan-x pan-y;
+    }
+    .gallery-window::-webkit-scrollbar { display: none; }
+    .gallery-window.is-dragging { cursor: grabbing; scroll-snap-type: none; }
+    .gallery-track { display: flex; align-items: stretch; gap: 14px; width: max-content; height: 100%; padding-right: 24px; }
+    .gallery-slide {
+      position: relative;
+      flex: 0 0 auto;
+      height: 100%;
+      aspect-ratio: var(--ratio, .8);
+      overflow: hidden;
+      background: #e5e1d8;
+      scroll-snap-align: start;
+    }
+    .gallery-slide img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+      -webkit-user-drag: none;
+    }
+    .caption {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font: 12px/1.4 "Newsreader", Georgia, "Times New Roman", serif;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .bio {
+      position: relative;
+      left: 50%;
+      width: calc(100vw - 80px);
+      max-width: 670px;
+      margin: clamp(38px, 7vw, 66px) 0 0;
+      transform: translateX(-50%);
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.3em;
+      font: clamp(16px, 1.55vw, 19px)/1.58 "Newsreader", Georgia, "Times New Roman", serif;
+      letter-spacing: -.018em;
+      text-align: left;
+    }
+    .bio p { margin: 0; }
+    footer {
+      position: relative;
+      left: 50%;
+      width: calc(100vw - 80px);
+      max-width: 670px;
+      min-height: 0;
+      border-top: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 28px;
+      transform: translateX(-50%);
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 48px 0;
+    }
+    .footer-socials { display: flex; flex-wrap: wrap; gap: clamp(14px, 2.5vw, 30px); }
+    .footer-socials a { color: var(--ink); font-size: 16px; white-space: nowrap; }
+    @media (min-width: 640px) { .bio { width: 80vw; } }
+    @media (min-width: 1280px) { .bio { width: 40vw; } }
+    @media (min-width: 640px) { footer { width: 80vw; } }
+    @media (min-width: 1280px) { footer { width: 40vw; } }
+    @media (max-width: 390px) {
+      footer { align-items: center; text-align: center; }
+      .footer-socials { width: 100%; justify-content: center; }
+    }
+    @media (max-width: 600px) {
+      .page { padding: 0 18px; }
+      header { height: 58px; }
+      .wordmark { font-size: 17px; }
+      main { padding-bottom: 58px; }
+      .gallery-window { height: min(112vw, 560px); }
+      .gallery-track { gap: 10px; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <a class="wordmark" href="#top" aria-label="Mohamed Amine Hamouda home">Mohamed Amine Hamouda</a>
+    </header>
+    <main id="top">
+      <section class="gallery" aria-label="Selected photographs and artworks">
+        <div class="gallery-window" id="gallery" tabindex="0" role="region" aria-label="Image gallery. Use the left and right arrow keys to browse.">
+          <div class="gallery-track" id="gallery-track">
+            <figure class="gallery-slide" style="--ratio: .75; margin:0"><img src="mohamed-amine-hamouda.jpeg" alt="Mohamed Amine Hamouda seated among woven plant fibres" draggable="false"></figure>
+            <figure class="gallery-slide" style="--ratio: .75; margin:0"><img src="gallery-02.jpeg" alt="Hamouda hand-working pale plant fibres in a vessel" draggable="false" loading="lazy"></figure>
+            <figure class="gallery-slide" style="--ratio: .75; margin:0"><img src="gallery-03.jpeg" alt="Hamouda sketching a sculptural design in his notebook" draggable="false" loading="lazy"></figure>
+            <figure class="gallery-slide" style="--ratio: .75; margin:0"><img src="gallery-04.jpeg" alt="Hamouda weaving dark plant fibres on a loom" draggable="false" loading="lazy"></figure>
+            <figure class="gallery-slide" style="--ratio: .75; margin:0"><img src="gallery-05.jpeg" alt="Hamouda shaping a large woven palm-fibre sculpture" draggable="false" loading="lazy"></figure>
+            <figure class="gallery-slide" style="--ratio: .75; margin:0"><img src="gallery-06.jpeg" alt="Hamouda carrying cut palm fronds through the Gabès oasis" draggable="false" loading="lazy"></figure>
+          </div>
+        </div>
+      </section>
+      <section class="bio" aria-label="Biography">
+        <p>Mohamed Amine Hamouda has been developing a body of work closely linked to the Gabès oasis over the years, reflecting on the current state of degradation of this ecosystem. Through painting, collages, and installations, he seeks to explore the aesthetic potential of materials sourced from this environment and to develop a range of materials and a vocabulary extracted directly from the fibre. His works on handmade paper, his pigmented fibre compositions, and his tapestries draw their plasticity and materiality directly from the oases of his region. As both an artist and a scenographer, Mohamed Amine Hamouda’s research explores the botanical, maritime and natural resources of Gabès to create works that document and interpret the threatening situation of the region’s biodiversity and ecosystem as a result of industrial intervention. In doing so, he aims to generate new possibilities and responses to social, environmental, and economic challenges. Working alongside his local community, his research questions the dominant narratives inherent in colonialism and post-independence, as well as the prevailing forces that dictate established practices.</p>
+        <p>He holds an MA in Art Sciences and Techniques from the Higher Institute of Arts and Crafts of Gabes where he currently teaches.</p>
+        <p>Since 2010, Mohamed Amine has been actively exhibiting in Tunisia and internationally, including Morocco, Greece, China, Turkey, Germany, Switzerland, Italy, Qatar, and Kuwait. His solo exhibitions include “Transcendance” (2016, Gabès), “A Fleur de Papier” (2018, Elbirou, Sousse), and “Transe-Papier” (2019, Institut Supérieur des Arts et Métiers, Gabès). He received the second prize at the Biennale des Artistes Arabes in Kuwait in 2019. More recently, he showcased his work in “Ragata… The Silk Road” and “Fire and Embers” in the joint exhibition Hirafen in 2023. He was also awarded the 2024 RDC Art Collection prize. In 2026, his work has been presented at Art Basel in Basel, the Design Doha Biennial, the Homo Faber Biennial in Venice, and in a group exhibition at the Misk Art Institute in Riyadh.</p>
+        <p>Mohamed Amine Hamouda’s work pertains to notable collections such as the SAMOCA: Saudi Arabia Museum of Contemporary Art, Saudi Arabia; Ithra, The King Abdulaziz Center for World Culture, Saudi Arabia and Fatma Kilani Collection, Tunisia.</p>
+      </section>
+    </main>
+    <footer>
+      <nav class="footer-socials" aria-label="Social media links">
+        <a href="https://www.instagram.com/mohamed_amine_hamouda/" target="_blank" rel="noreferrer">Instagram</a>
+        <a href="https://www.linkedin.com/in/mohamed-amine-hamouda-799b07a9/" target="_blank" rel="noreferrer">LinkedIn</a>
+        <a href="https://www.youtube.com/@mohamedaminehamouda5949" target="_blank" rel="noreferrer">YouTube</a>
+      </nav>
+      <span>© 2026 Mohamed Amine Hamouda</span>
+    </footer>
+  </div>
+  <script>
+    (() => {
+      const gallery = document.getElementById('gallery');
+      const track = document.getElementById('gallery-track');
+      const originals = [...track.children];
+      let dragging = false;
+      let startX = 0;
+      let startScroll = 0;
+      let lastX = 0;
+      let lastTime = 0;
+      let velocity = 0;
+      let momentumFrame = 0;
+
+      const pageBy = direction => {
+        const slide = originals[0];
+        const step = slide.getBoundingClientRect().width + parseFloat(getComputedStyle(gallery.querySelector('.gallery-track')).gap || 0);
+        gallery.scrollBy({ left: step * direction, behavior: 'smooth' });
+      };
+
+      gallery.addEventListener('keydown', event => {
+        if (event.key === 'ArrowRight') { event.preventDefault(); pageBy(1); }
+        if (event.key === 'ArrowLeft') { event.preventDefault(); pageBy(-1); }
+      });
+      gallery.addEventListener('pointerdown', event => {
+        if (event.pointerType !== 'mouse' || event.button !== 0) return;
+        cancelAnimationFrame(momentumFrame);
+        dragging = true;
+        startX = lastX = event.clientX;
+        startScroll = gallery.scrollLeft;
+        lastTime = performance.now();
+        velocity = 0;
+        gallery.classList.add('is-dragging');
+        gallery.setPointerCapture(event.pointerId);
+      });
+      gallery.addEventListener('pointermove', event => {
+        if (!dragging) return;
+        const now = performance.now();
+        gallery.scrollLeft = startScroll - (event.clientX - startX);
+        const dt = Math.max(1, now - lastTime);
+        velocity = (lastX - event.clientX) / dt;
+        lastX = event.clientX;
+        lastTime = now;
+      });
+      const releaseDrag = () => {
+        if (!dragging) return;
+        dragging = false;
+        gallery.classList.remove('is-dragging');
+        let currentVelocity = Math.max(-2.4, Math.min(2.4, velocity));
+        const coast = () => {
+          gallery.scrollLeft += currentVelocity * 16;
+          currentVelocity *= .94;
+          if (Math.abs(currentVelocity) > .035) momentumFrame = requestAnimationFrame(coast);
+        };
+        momentumFrame = requestAnimationFrame(coast);
+      };
+      gallery.addEventListener('pointerup', releaseDrag);
+      gallery.addEventListener('pointercancel', releaseDrag);
+      gallery.addEventListener('lostpointercapture', releaseDrag);
+      gallery.addEventListener('dragstart', event => event.preventDefault());
+    })();
+  </script>
+</body>
+</html>
