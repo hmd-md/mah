@@ -51,7 +51,7 @@
     main {
       width: min(100%, var(--column));
       margin: 0 auto;
-      padding: 0 0 78px;
+      padding: 0 0 24px;
     }
     .gallery {
       position: relative;
@@ -121,7 +121,6 @@
       width: calc(100vw - 80px);
       max-width: 670px;
       min-height: 0;
-      border-top: 1px solid var(--line);
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -132,10 +131,38 @@
       font-size: 12px;
       letter-spacing: .1em;
       text-transform: uppercase;
-      padding: 48px 0;
+      padding: 24px 0;
     }
+    .contact-button {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 18px;
+      border: 1px solid var(--ink);
+      background: var(--ink);
+      color: var(--paper);
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: .1em;
+      text-transform: capitalize;
+    }
+    .contact-button:hover {
+      border-color: var(--ink);
+      background: transparent;
+      color: var(--ink);
+      opacity: 1;
+    }
+    .contact-button:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
     .footer-socials { display: flex; flex-wrap: wrap; gap: clamp(14px, 2.5vw, 30px); }
-    .footer-socials a { color: var(--ink); font-size: 16px; white-space: nowrap; }
+    .footer-socials a { color: var(--ink); font-size: 16px; white-space: nowrap; text-transform: capitalize; }
+    .footer-copyright {
+      width: 100%;
+      border-top: 1px solid var(--line);
+      padding-top: 20px;
+      text-align: center;
+    }
     @media (min-width: 640px) { .bio { width: 80vw; } }
     @media (min-width: 1280px) { .bio { width: 40vw; } }
     @media (min-width: 640px) { footer { width: 80vw; } }
@@ -148,7 +175,7 @@
       .page { padding: 0 18px; }
       header { height: 58px; }
       .wordmark { font-size: 17px; }
-      main { padding-bottom: 58px; }
+      main { padding-bottom: 18px; }
       .gallery-window { height: min(112vw, 560px); }
       .gallery-track { gap: 10px; }
     }
@@ -181,12 +208,13 @@
       </section>
     </main>
     <footer>
+      <a class="contact-button" href="mailto:mohamed.amine.hamouda.contact@gmail.com">Contact</a>
       <nav class="footer-socials" aria-label="Social media links">
         <a href="https://www.instagram.com/mohamed_amine_hamouda/" target="_blank" rel="noreferrer">Instagram</a>
         <a href="https://www.linkedin.com/in/mohamed-amine-hamouda-799b07a9/" target="_blank" rel="noreferrer">LinkedIn</a>
         <a href="https://www.youtube.com/@mohamedaminehamouda5949" target="_blank" rel="noreferrer">YouTube</a>
       </nav>
-      <span>© 2026 Mohamed Amine Hamouda</span>
+      <span class="footer-copyright">© 2026 Mohamed Amine Hamouda</span>
     </footer>
   </div>
   <script>
