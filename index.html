@@ -125,7 +125,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap: 28px;
+      gap: 10px;
       transform: translateX(-50%);
       color: var(--muted);
       font-size: 12px;
@@ -133,33 +133,69 @@
       text-transform: uppercase;
       padding: 24px 0;
     }
-    .contact-button {
+    .footer-contact {
+      width: 100%;
+      border-top: 1px solid var(--line);
+      padding-top: 0;
+    }
+    .footer-mail-button {
       display: flex;
       width: 100%;
+      min-height: 68px;
       align-items: center;
       justify-content: center;
-      padding: 11px 18px;
-      border: 1px solid var(--ink);
-      background: var(--ink);
-      color: var(--paper);
-      font-size: 14px;
-      font-weight: 700;
-      line-height: 1;
-      letter-spacing: .1em;
-      text-transform: capitalize;
-    }
-    .contact-button:hover {
-      border-color: var(--ink);
+      gap: 16px;
+      padding: 14px 0;
+      border: 0;
       background: transparent;
       color: var(--ink);
-      opacity: 1;
+      font-family: inherit;
+      cursor: pointer;
+      text-align: left;
+      text-transform: none;
     }
-    .contact-button:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+    .footer-mail-content {
+      display: flex;
+      max-width: 100%;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 16px;
+      letter-spacing: 0;
+    }
+    .footer-mail-address {
+      overflow-wrap: anywhere;
+    }
+    .footer-mail-button:hover .footer-mail-content { color: var(--ink); }
+    .footer-mail-button:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+    .footer-mail-icon-wrap {
+      position: relative;
+      flex: 0 0 auto;
+      width: 20px;
+      height: 20px;
+    }
+    .footer-mail-icon {
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 20px;
+      height: 20px;
+      transition: opacity .35s ease;
+    }
+    #copied-icon { opacity: 0; }
+    .footer-mail-button.has-copied #copy-icon { opacity: 0; }
+    .footer-mail-button.has-copied #copied-icon { opacity: 1; }
+    @media (prefers-reduced-motion: reduce) { .footer-mail-icon { transition: none; } }
+    @media (max-width: 480px) {
+      .footer-mail-content { font-size: 14px; }
+    }
     .footer-socials { display: flex; flex-wrap: wrap; gap: clamp(14px, 2.5vw, 30px); }
     .footer-socials a { color: var(--ink); font-size: 16px; white-space: nowrap; text-transform: capitalize; }
     .footer-copyright {
       width: 100%;
       border-top: 1px solid var(--line);
+      margin-top: 18px;
       padding-top: 20px;
       text-align: center;
     }
@@ -179,13 +215,17 @@
       .gallery-window { height: min(112vw, 560px); }
       .gallery-track { gap: 10px; }
     }
+    @media (max-width: 396px) {
+      .page { padding-right: 16px; padding-left: 16px; }
+      .bio, footer { width: calc(100vw - 32px); }
+    }
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
   </style>
 </head>
 <body>
   <div class="page">
     <header>
-      <a class="wordmark" href="#top" aria-label="Mohamed Amine Hamouda home">Mohamed Amine Hamouda</a>
+      <span class="wordmark">Mohamed Amine Hamouda</span>
     </header>
     <main id="top">
       <section class="gallery" aria-label="Selected photographs and artworks">
@@ -208,7 +248,17 @@
       </section>
     </main>
     <footer>
-      <a class="contact-button" href="mailto:mohamed.amine.hamouda.contact@gmail.com">Contact</a>
+      <section class="footer-contact">
+        <button class="footer-mail-button" id="copy-email" type="button" aria-label="Copy email to clipboard" title="Copy to clipboard" data-email="mohamed.amine.hamouda.contact@gmail.com">
+          <span class="footer-mail-content">
+            <span class="footer-mail-address">mohamed.amine.hamouda.contact@gmail.com</span>
+            <span class="footer-mail-icon-wrap" aria-hidden="true">
+              <svg class="footer-mail-icon" id="copy-icon" viewBox="0 0 24 24" fill="none"><rect x="8" y="8" width="12" height="13" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M16 8V5.5A1.5 1.5 0 0 0 14.5 4h-9A1.5 1.5 0 0 0 4 5.5v11A1.5 1.5 0 0 0 5.5 18H8" stroke="currentColor" stroke-width="1.6"/></svg>
+              <svg class="footer-mail-icon" id="copied-icon" viewBox="0 0 24 24" fill="none"><path d="m5 12.5 4.5 4.5L19 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </span>
+        </button>
+      </section>
       <nav class="footer-socials" aria-label="Social media links">
         <a href="https://www.instagram.com/mohamed_amine_hamouda/" target="_blank" rel="noreferrer">Instagram</a>
         <a href="https://www.linkedin.com/in/mohamed-amine-hamouda-799b07a9/" target="_blank" rel="noreferrer">LinkedIn</a>
@@ -219,6 +269,37 @@
   </div>
   <script>
     (() => {
+      const copyButton = document.getElementById('copy-email');
+      let copyResetTimer = 0;
+      copyButton.addEventListener('click', async () => {
+        const email = copyButton.dataset.email;
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(email);
+          } else {
+            const field = document.createElement('textarea');
+            field.value = email;
+            field.setAttribute('readonly', '');
+            field.style.position = 'fixed';
+            field.style.opacity = '0';
+            document.body.append(field);
+            field.select();
+            const copied = document.execCommand('copy');
+            field.remove();
+            if (!copied) throw new Error('Clipboard copy failed');
+          }
+          copyButton.classList.add('has-copied');
+          copyButton.setAttribute('aria-label', 'Email copied to clipboard');
+          window.clearTimeout(copyResetTimer);
+          copyResetTimer = window.setTimeout(() => {
+            copyButton.classList.remove('has-copied');
+            copyButton.setAttribute('aria-label', 'Copy email to clipboard');
+          }, 1000);
+        } catch {
+          copyButton.setAttribute('aria-label', 'Copy failed. Select the email address to copy it');
+        }
+      });
+
       const gallery = document.getElementById('gallery');
       const track = document.getElementById('gallery-track');
       const originals = [...track.children];
