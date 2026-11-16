@@ -29,7 +29,47 @@
 </div></section>
 <section class="section clients" hidden><h2>Clients</h2><div class="client-grid" aria-label="Client placeholders"><span>Client 01</span><span>Client 02</span><span>Client 03</span><span>Client 04</span><span>Client 05</span><span>Client 06</span><span>Client 07</span><span>Client 08</span><span>Client 09</span><span>Client 10</span><span>Client 11</span><span>Client 12</span><span>Client 13</span><span>Client 14</span><span>Client 15</span><span>Client 16</span><span>Client 17</span><span>Client 18</span><span>Client 19</span><span>Client 20</span></div></section></div></main>
 <footer id="contact"><div class="wrap footer-inner"><div class="contact-grid"><h2>Contact</h2><form class="contact-form" id="contact-form"><label>Full name<input name="name" autocomplete="name" required></label><label>Email<input type="email" name="email" autocomplete="email" required></label><label>Subject<input name="subject" required></label><label>Message<textarea name="message" rows="5" required></textarea></label><button type="submit">Send</button><p class="form-status" role="status" aria-live="polite"></p></form></div><div class="footer-bottom"><p class="copyright">© 2026 Mohamed Amine Hamouda</p><div class="social-links"><a href="https://www.instagram.com/mohamed_amine_hamouda/" target="_blank" rel="noopener noreferrer">Instagram</a><a href="https://www.linkedin.com/in/mohamed-amine-hamouda-799b07a9/" target="_blank" rel="noopener noreferrer">LinkedIn</a><a href="https://www.youtube.com/@mohamedaminehamouda5949" target="_blank" rel="noopener noreferrer">YouTube</a></div></div></div></footer>
-<script>document.getElementById('contact-form').addEventListener('submit', function (event) { event.preventDefault(); this.querySelector('.form-status').textContent = 'This form is not connected yet.'; });</script>
+<script>
+document.getElementById('contact-form').addEventListener('submit', async function (event) {
+  event.preventDefault();
+
+  const form = this;
+  const status = form.querySelector('.form-status');
+  const button = form.querySelector('button[type="submit"]');
+  const values = new FormData(form);
+  const originalButtonText = button.textContent;
+
+  button.disabled = true;
+  button.textContent = 'Sending…';
+  status.textContent = '';
+
+  try {
+    const response = await fetch('/api/send-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        toName: values.get('name'),
+        toEmail: values.get('email'),
+        subject: values.get('subject'),
+        textContent: values.get('message'),
+      }),
+    });
+
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok || !result.success) {
+      throw new Error(result.error || 'Unable to send your message. Please try again.');
+    }
+
+    status.textContent = 'Your message has been sent.';
+    form.reset();
+  } catch (error) {
+    status.textContent = error.message || 'Unable to send your message. Please try again.';
+  } finally {
+    button.disabled = false;
+    button.textContent = originalButtonText;
+  }
+});
+</script>
 <script>
 (() => {
       const gallery = document.getElementById('gallery');
