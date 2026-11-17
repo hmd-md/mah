@@ -26,7 +26,7 @@ export default async function handler(req, res) {
         subject,
         textContent: `Name: ${toName}
 	Email: ${toEmail}
-	${textContent}
+	Message: ${textContent}
 	`,
       }),
     });
