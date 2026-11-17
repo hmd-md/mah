@@ -19,12 +19,15 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         sender: {
-          name: toName,
+          name: 'INTERNAL',
           email: process.env.BREVO_VERIFIED_EMAIL,
         },
         to: [{ email: process.env.RECEIVER_EMAIL, name: toName }],
-        subject: `${subject} - ${toEmail}`,
-        textContent,
+        subject,
+        textContent: `Name: ${toName}
+	Email: ${toEmail}
+	${textContent}
+	`,
       }),
     });
 
