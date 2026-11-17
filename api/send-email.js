@@ -22,6 +22,7 @@ export default async function handler(req, res) {
           name: 'INTERNAL',
           email: process.env.BREVO_VERIFIED_EMAIL,
         },
+        //to: [{ email: process.env.RECEIVER_EMAIL, name: toName }],
         to: [{ email: process.env.BREVO_VERIFIED_EMAIL, name: toName }],
         subject: `${subject} - ${toEmail}`,
         textContent,
